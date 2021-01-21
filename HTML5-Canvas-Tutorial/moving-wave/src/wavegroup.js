@@ -2,7 +2,7 @@ import { Wave } from './wave.js';
 
 export class WaveGroup {
   constructor() {
-    this.totalWaves = 3;
+    this.totalWaves = 1;
     this.totalPoint = 6;
 
     this.color = [
@@ -14,7 +14,12 @@ export class WaveGroup {
     this.waves = [];
 
     for (let i = 0; i < this.totalWaves; i++) {
-      const wave = new Wave();
+      const wave = new Wave(
+        i, //
+        this.totalPoint,
+        this.color[i]
+      );
+      this.waves[i] = wave;
     }
   }
 
