@@ -43,6 +43,7 @@ export class Wave {
     ctx.moveTo(prevX, prevY);
 
     for (let i = 1; i < this.totalPoints; i++) {
+      // 처음과 마지막 점은 움직이지 않게
       if (i < this.totalPoints - 1) {
         this.points[i].update();
       }
@@ -50,15 +51,15 @@ export class Wave {
       const cx = (prevX + this.points[i].x) / 2;
       const cy = (prevY + this.points[i].y) / 2;
 
-      ctx.lineTo(cx, cy);
+      ctx.quadraticCurveTo(prevX, prevY, cx, cy);
 
       prevX = this.points[i].x;
       prevY = this.points[i].y;
     }
 
-    ctx.lineTo(prevX, prevY);
-    ctx.lineTo(this.stageWidth, this.stageHeight);
-    ctx.lineTo(this.points[0].x, this.stageHeight);
+    ctx.lineTo(prevX, prevY); //사각형의 맨 오른쪽 끝 상단
+    ctx.lineTo(this.stageWidth, this.stageHeight); // 맨 오른쪽 끝 하단
+    ctx.lineTo(this.points[0].x, this.stageHeight); // 맨 왼쪽 끝 하단
     ctx.fill();
     ctx.closePath();
   }
