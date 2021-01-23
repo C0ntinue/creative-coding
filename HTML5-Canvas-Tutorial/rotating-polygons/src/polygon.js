@@ -13,8 +13,19 @@ export class Polygon {
     ctx.fillStyle = '#000000';
     ctx.beginPath();
 
-    const angle = PI2 / this.sides;
+    const angle = PI2 / this.sides; // 360deg를 면 개수로 나눈다
 
     ctx.translate(this.x, this.y);
+
+    for (let i = 0; i < this.sides; i++) {
+      const x = this.radius * Math.cos(angle * i); // 극좌표로 도형만들기
+      const y = this.radius * Math.sin(angle * i);
+
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
   }
 }

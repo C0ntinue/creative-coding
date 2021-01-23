@@ -1,3 +1,5 @@
+import { Polygon } from './polygon.js';
+
 class App {
   constructor() {
     this.canvas = document.createElement('canvas');
@@ -18,12 +20,21 @@ class App {
     this.canvas.width = this.stageWidth * 1;
     this.canvas.height = this.stageHeight * 1;
     this.ctx.scale(1, 1);
+
+    this.polygon = new Polygon(
+      this.stageWidth / 2, // x
+      this.stageHeight / 2, // y
+      this.stageHeight / 3, // radius
+      3 // sides
+    );
   };
 
   animate = () => {
     window.requestAnimationFrame(this.animate);
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+
+    this.polygon.animate(this.ctx);
   };
 }
 
