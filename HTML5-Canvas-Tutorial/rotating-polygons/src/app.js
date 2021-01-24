@@ -33,7 +33,7 @@ class App {
       this.stageWidth / 2, // x
       this.stageHeight / 2, // y
       this.stageHeight / 3, // radius
-      3 // sides
+      12 // sides
     );
   };
 
@@ -42,7 +42,7 @@ class App {
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-    this.moveX *= 0.92;
+    this.moveX *= 0.72;
 
     this.polygon.animate(this.ctx, this.moveX);
   };
@@ -60,7 +60,9 @@ class App {
     }
   };
 
-  onUP = e => {};
+  onUP = e => {
+    this.isDown = false;
+  };
 }
 
 window.onload = () => {
