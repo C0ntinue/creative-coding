@@ -8,14 +8,17 @@ export class Polygon {
     this.rotate = 0;
   }
 
-  animate(ctx) {
+  animate(ctx, moveX) {
     ctx.save();
     ctx.fillStyle = '#000000';
     ctx.beginPath();
 
-    const angle = PI2 / this.sides; // 360deg를 면 개수로 나눈다
+    const angle = PI2 / this.sides; // 360deg(2파이라디안)를 면 개수로 나눠서 각(라디안)을 구한다
 
     ctx.translate(this.x, this.y);
+
+    this.rotate -= moveX * -0.008; // 회전하는 정도, 음수를 줘서 포인터 방향대로 돌아가게 함
+    ctx.rotate(this.rotate);
 
     for (let i = 0; i < this.sides; i++) {
       const x = this.radius * Math.cos(angle * i); // 극좌표로 도형만들기

@@ -11,6 +11,14 @@ class App {
     window.addEventListener('resize', this.resize, false);
     this.resize();
 
+    this.isDown = false;
+    this.moveX = 0;
+    this.offsetX = 0;
+
+    document.addEventListener('pointerdown', this.onDown, false); // false : 기본값. 클릭된 자식부터 최상위 부모까지 상위로 이동하며 이벤트를 처리(Event Bubbling)
+    document.addEventListener('pointermove', this.onMove, false);
+    document.addEventListener('pointerup', this.onUP, false);
+
     window.requestAnimationFrame(this.animate);
   }
   resize = () => {
@@ -34,8 +42,25 @@ class App {
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-    this.polygon.animate(this.ctx);
+    this.moveX *= 0.92;
+
+    this.polygon.animate(this.ctx, this.moveX);
   };
+
+  onDown = e => {
+    this.isDown = true;
+    this.moveX = 0;
+    this.offsetX = e.clientX;
+  };
+
+  onMove = e => {
+    if (this.isDown) {
+      this.moveX = e.clientX - this.offsetX;
+      this.offsetX = e.clientX;
+    }
+  };
+
+  onUP = e => {};
 }
 
 window.onload = () => {
